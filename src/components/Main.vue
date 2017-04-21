@@ -30,6 +30,10 @@ export default {
     GlobalBus.on(GlobalBus.event.ws_con_open, () => {
       this.showConnected()
     })
+    GlobalBus.on(GlobalBus.event.ws_con_close, () => {
+      console.log('connection close')
+      this.showDisconnected()
+    })
   },
   methods: {
     ui_show_snack (msg) {
@@ -45,6 +49,10 @@ export default {
     showConnected () {
       this.ui_show_snack('连接成功')
       this.connected = true
+    },
+    showDisconnected () {
+      this.ui_show_snack('连接已断开')
+      this.connected = false
     }
   },
   components: {

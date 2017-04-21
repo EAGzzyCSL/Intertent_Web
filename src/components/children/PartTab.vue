@@ -4,8 +4,9 @@
       <!-- tabs -->
       <mu-tabs :value="ui_state.tab_active_tab" @change="ui_tab_handleTabChange">
         <mu-tab value="tab1" title="远程输入"/>
-        <mu-tab value="tab2" title="TAB TWO"/>
-        <mu-tab value="tab3" title="TAB ACTIVE"/>
+        <mu-tab value="tab2" title="文件管理"/>
+        <mu-tab value="tab3" title="互相通信"/>
+        <mu-tab value="tab4" title="小程序"/>
       </mu-tabs>
       <div v-if="ui_state.tab_active_tab === 'tab1'" class="tab_panel">
         <fun-input></fun-input>
@@ -16,6 +17,9 @@
       <div v-if="ui_state.tab_active_tab === 'tab3'" class="tab_panel">
         <fun-chat></fun-chat>
       </div>
+      <div v-if="ui_state.tab_active_tab === 'tab4'" class="tab_panel">
+        <fun-applet></fun-applet>
+      </div>
     </mu-paper>
   </div>
 
@@ -24,6 +28,7 @@
 import FunChat from './FunChat'
 import FunFile from './FunFile'
 import FunInput from './FunInput'
+import FunApplet from './FunApplet'
 export default {
   data () {
     return {
@@ -40,7 +45,8 @@ export default {
   components: {
     FunChat,
     FunFile,
-    FunInput
+    FunInput,
+    FunApplet
   }
 }
 </script>

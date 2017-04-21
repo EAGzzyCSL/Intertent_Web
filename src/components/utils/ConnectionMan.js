@@ -19,5 +19,8 @@ export default {
   },
   sendInput (data) {
     ws.send(DataPack.pack(DataPack.type.input, data))
+  },
+  sendCall (data) {
+    ws.send(DataPack.pack(DataPack.type.call, data))
   }
 }

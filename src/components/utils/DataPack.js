@@ -3,6 +3,7 @@ export default {
     return type + '|' + JSON.stringify(data)
   },
   type: {
-    input: 'input'
+    input: 'input',
+    call: 'call'
   }
 }
