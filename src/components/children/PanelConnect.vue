@@ -14,6 +14,7 @@
     <p>
       关于二维码的<a href="#">更多</a>
     </p>
+    <mu-flat-button label="获取安卓app" icon="android" primary @click="getAndroidApp"/>
   </mu-paper>
 </div>
 </template>
@@ -44,6 +45,9 @@ export default {
         arr.push(this.ip_and_port)
       }
       localStorage.setItem('url_his', JSON.stringify(arr))
+    },
+    getAndroidApp () {
+      window.location.replace('/WebAccess/Intertent-debug.apk')
     }
   }
 }

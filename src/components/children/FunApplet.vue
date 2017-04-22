@@ -1,7 +1,7 @@
 <template>
   <div id="div_applet">
     <applet-call></applet-call>
-    <applet-blank></applet-blank>
+    <applet-clipboard></applet-clipboard>
     <applet-blank></applet-blank>
     <applet-blank></applet-blank>
 
@@ -10,13 +10,15 @@
 <script>
 import AppletCall from './AppletCall'
 import AppletBlank from './AppletBlank'
+import AppletClipboard from './AppletClipboard'
 export default {
   data () {
     return {}
   },
   components: {
     AppletBlank,
-    AppletCall
+    AppletCall,
+    AppletClipboard
   }
 }
 </script>
@@ -30,8 +32,8 @@ export default {
   justify-content: center;
 }
 #div_applet>div{
-  width: 40%;
-  height: 40%;
-  margin:1em;
+  width: 45%;
+  height: 45%;
+  margin:0 1em 1em;
 }
 </style>

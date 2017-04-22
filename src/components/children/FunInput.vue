@@ -5,16 +5,16 @@
       <mu-icon-button icon="send" @click="sendText"/>
     </div>
     <div id="input_spec">
-      <mu-raised-button class="demo-raised-button"
+      <mu-raised-button
        label="光标左移" icon="keyboard_arrow_left"
        @click="cursorLeft"/>
-      <mu-raised-button class="demo-raised-button"
+      <mu-raised-button
        label="光标右移" icon="keyboard_arrow_right"
        @click="cursorRight"/>
-      <mu-raised-button class="demo-raised-button"
+      <mu-raised-button
        label="退格" icon="backspace"
        @click="actionBackspace"/>
-      <mu-raised-button class="demo-raised-button"
+      <mu-raised-button
        label="回车" icon="keyboard_return"
        @click="actionEnter"/>
     </div>

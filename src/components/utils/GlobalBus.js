@@ -4,7 +4,8 @@ export default {
   event: {
     ws_con_open: 'ws_con_open',
     ws_con_error: 'ws_con_error',
-    ws_con_close: 'ws_con_close'
+    ws_con_close: 'ws_con_close',
+    clipboard_setText: 'clipboard_setText'
   },
   on (name, data) {
     bus.$on(name, data)

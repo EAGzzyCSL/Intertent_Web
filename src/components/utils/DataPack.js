@@ -4,6 +4,7 @@ export default {
   },
   type: {
     input: 'input',
-    call: 'call'
+    call: 'call',
+    clipboard: 'clipboard'
   }
 }

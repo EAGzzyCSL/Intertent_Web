@@ -13,8 +13,14 @@ export default {
     ws.onclose = function () {
       GlobalBus.emit(GlobalBus.event.ws_con_close)
     }
-    ws.onmessage = function () {
-      console.log('message')
+    ws.onmessage = function (msg) {
+      let json = JSON.parse(msg.data)
+      switch (json.type) {
+        case DataPack.type.clipboard : {
+          GlobalBus.emit(GlobalBus.event.clipboard_setText, json.event)
+          break
+        }
+      }
     }
   },
   sendInput (data) {
@@ -22,5 +28,8 @@ export default {
   },
   sendCall (data) {
     ws.send(DataPack.pack(DataPack.type.call, data))
+  },
+  sendClipboard (data) {
+    ws.send(DataPack.pack(DataPack.type.clipboard, data))
   }
 }
