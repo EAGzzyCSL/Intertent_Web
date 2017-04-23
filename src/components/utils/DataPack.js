@@ -5,6 +5,7 @@ export default {
   type: {
     input: 'input',
     call: 'call',
-    clipboard: 'clipboard'
+    clipboard: 'clipboard',
+    mouse: 'mouse'
   }
 }

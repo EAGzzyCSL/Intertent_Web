@@ -23,6 +23,9 @@ export default {
       }
     }
   },
+  disConnect () {
+    ws.close()
+  },
   sendInput (data) {
     ws.send(DataPack.pack(DataPack.type.input, data))
   },
@@ -31,5 +34,8 @@ export default {
   },
   sendClipboard (data) {
     ws.send(DataPack.pack(DataPack.type.clipboard, data))
+  },
+  sendMouse (data) {
+    ws.send(DataPack.pack(DataPack.type.mouse, data))
   }
 }

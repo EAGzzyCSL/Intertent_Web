@@ -4,11 +4,7 @@
   <mu-appbar title="Title">
     <mu-icon-button icon="menu" slot="left" @click="ui_drawer_toggle"/>
     <mu-icon-menu icon="more_vert" slot="right">
-      <mu-menu-item title="菜单 1"/>
-      <mu-menu-item title="菜单 2"/>
-      <mu-menu-item title="菜单 3"/>
-      <mu-menu-item title="菜单 4"/>
-      <mu-menu-item title="菜单 5"/>
+      <mu-menu-item title="退出" @click="exit"/>
     </mu-icon-menu>
   </mu-appbar>
   <!-- drawer -->
@@ -37,6 +33,8 @@ Vue.use(MuseUI)
 import PartPhone from './PartPhone'
 import PartTab from './PartTab'
 import PartInfo from './PartInfo'
+// import GlobalBus from '../utils/GlobalBus'
+import ConnectionMan from '../utils/ConnectionMan'
 export default {
   data () {
     return {
@@ -52,6 +50,9 @@ export default {
     },
     ui_tab_handleTabChange (val) {
       this.ui_state.tab_active_tab = val
+    },
+    exit () {
+      ConnectionMan.disConnect()
     }
   },
   components: {
