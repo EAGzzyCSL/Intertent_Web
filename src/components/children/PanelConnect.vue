@@ -24,13 +24,14 @@ import ConnectionMan from '../utils/ConnectionMan.js'
 export default {
   data () {
     return {
-      qr_code: 'http://localhost/test/my_avatar.jpg',
+      qr_code: '',
       url_his: [],
       ip_and_port: ''
     }
   },
   created () {
     this.url_his = JSON.parse(localStorage.getItem('url_his')) || []
+    this.getQrCode()
   },
   methods: {
     beginConnect () {
@@ -48,6 +49,18 @@ export default {
     },
     getAndroidApp () {
       window.location.replace('/WebAccess/Intertent-debug.apk')
+    },
+    getQrCode () {
+      fetch('http://localhost:1994/getQrCode', {
+        methods: 'get',
+        mode: 'cors'
+      }).then(res => {
+        res.text().then(text => {
+          this.qr_code = text
+        })
+      }).catch(function (err) {
+        console.log(err)
+      })
     }
   }
 }

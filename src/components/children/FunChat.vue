@@ -7,7 +7,7 @@
           <mu-icon v-else value="computer"/>
         </mu-paper>
         <div class="msgList" >
-          <div v-if="msg.type==='text'" v-for="msg in side.his">
+          <div v-if="msg.type===0" v-for="msg in side.his">
             <p>
               {{msg.value}}
             </p>
@@ -17,10 +17,10 @@
     </div>
     <div id="chat_input">
       <mu-icon-button icon="sentiment_satisfied" type="file"/>
-      <textarea id="textarea_input"></textarea>
+      <textarea id="textarea_input" v-model="textMsg"></textarea>
       <mu-icon-button icon="attach_file" @click="pick_file"/>
       <mu-icon-button icon="add_a_photo" @click="pick_image"/>
-      <mu-icon-button icon="send"/>
+      <mu-icon-button icon="send" @click="sendText"/>
       <div id="div_input_file">
         <input type="file" ref="pick_file" />
         <input type="file" ref="pick_image"/>
@@ -29,19 +29,22 @@
   </div>
 </template>
 <script>
+// import ConnectionMan from '../utils/ConnectionMan.js'
+// import GlobalBus from '../utils/GlobalBus.js'
 export default {
   data () {
     return {
+      textMsg: '',
       chatHis: [
         {
           from: 'phone',
           his: [
             {
-              type: 'text',
+              type: 0,
               value: 'hello world'
             },
             {
-              type: 'text',
+              type: 0,
               value: 'hello world'
             }
           ]
@@ -50,11 +53,11 @@ export default {
           from: 'pc',
           his: [
             {
-              type: 'text',
+              type: 0,
               value: 'lalala'
             },
             {
-              type: 'text',
+              type: 0,
               value: 'hello world'
             }
           ]
@@ -68,12 +71,31 @@ export default {
     },
     pick_file () {
       this.$refs.pick_file.click()
+    },
+    sendText () {
+      let msg = {
+        time: Date.now(),
+        type: 0,
+        value: this.textMsg,
+        sourceType: 0
+      }
+      // ConnectionMan.sendMsgText(msg)
+      if (this.chatHis.length === 0 ||
+        this.chatHis[this.chatHis.length - 1].from === 'phone'
+      ) {
+        this.chatHis.push({
+          from: 'pc',
+          his: ''
+        })
+      }
+      this.chatHis[this.chatHis.length - 1].his.push(msg)
+      this.textMsg = ''
     }
   }
 }
 
 </script>
-<style scoped>
+<style lang="scss" scoped>
 #div_chat{
   display: flex;
   flex-direction: column;
@@ -87,28 +109,35 @@ export default {
 }
 .side{
   display: flex;
-  border: solid 1px pink;
+  // border: solid 1px pink;
   padding:0.5em;
-}
-.side>.mu-paper{
-  height: 3em;
-  width: 3em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1em;
-
-}
-.side.right{
-  flex-direction: row-reverse;
-}
-.side.right>.mu-paper{
-  margin-left: 1em;
-}
-.msgList{
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
+  .mu-paper{
+    height: 3em;
+    width: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1em;
+  }
+  &.right{
+    flex-direction: row-reverse;
+    .mu-paper{
+      margin-left: 1em;
+    }
+  }
+  .msgList{
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid black;
+    div{
+      p{
+        margin: 0;
+        padding: 1em;
+        background-color: lightgray;
+        margin-bottom: 1em;
+      }
+    }
+  }
 
 }
 #chat_input{
@@ -118,28 +147,30 @@ export default {
   align-items: center;
   justify-content: space-around;
   padding: 0 1em;
+  i{
+    margin: 0 0.2em;
+  }
+  #textarea_input{
+    background-color: green;
+    height: 5.5em;
+    outline: none;
+    border: none;
+    word-wrap: break-word;
+    align-self: center;
+    flex: 1 0 0;
+    margin: 0 0.5em;
+    border-radius: 0.3em;
+    background-color: white;
+    box-shadow: 1px 1px 5px #ccc;
+    resize: none;
+    line-height: 1.5em;
+    /* overflow: auto; */
+    padding: 0.5em;
+  }
+  #div_input_file{
+    display: none;
+  }
 }
-#chat_input>i{
-  margin: 0 0.2em;
-}
-#textarea_input{
-  background-color: green;
-  height: 5.5em;
-  outline: none;
-  border: none;
-  word-wrap: break-word;
-  align-self: center;
-  flex: 1 0 0;
-  margin: 0 0.5em;
-  border-radius: 0.3em;
-  background-color: white;
-  box-shadow: 1px 1px 5px #ccc;
-  resize: none;
-  line-height: 1.5em;
-  /* overflow: auto; */
-  padding: 0.5em;
-}
-#div_input_file{
-  display: none;
-}
+
+
 </style>

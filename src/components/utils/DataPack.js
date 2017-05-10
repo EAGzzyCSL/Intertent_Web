@@ -6,6 +6,7 @@ export default {
     input: 'input',
     call: 'call',
     clipboard: 'clipboard',
-    mouse: 'mouse'
+    mouse: 'mouse',
+    msgText: 'msgText'
   }
 }

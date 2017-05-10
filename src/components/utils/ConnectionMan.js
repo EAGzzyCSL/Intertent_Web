@@ -37,5 +37,8 @@ export default {
   },
   sendMouse (data) {
     ws.send(DataPack.pack(DataPack.type.mouse, data))
+  },
+  sendMsgText (data) {
+    ws.send(DataPack.pack(DataPack.type.msgText), data)
   }
 }
