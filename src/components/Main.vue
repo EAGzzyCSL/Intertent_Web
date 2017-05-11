@@ -18,7 +18,7 @@ import GlobalBus from './utils/GlobalBus.js'
 export default {
   data () {
     return {
-      connected: true,
+      connected: false,
       ui: {
         snack_msg: '',
         snack_show: false,

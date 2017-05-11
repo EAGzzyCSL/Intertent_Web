@@ -7,6 +7,7 @@ export default {
     call: 'call',
     clipboard: 'clipboard',
     mouse: 'mouse',
-    msgText: 'msgText'
+    msg: 'msg',
+    all_msg_his: 'all_msg_his'
   }
 }

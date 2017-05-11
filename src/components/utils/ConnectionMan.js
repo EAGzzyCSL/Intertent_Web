@@ -20,6 +20,14 @@ export default {
           GlobalBus.emit(GlobalBus.event.clipboard_setText, json.event)
           break
         }
+        case DataPack.type.msg : {
+          GlobalBus.emit(GlobalBus.event.msg, json.event)
+          break
+        }
+        case DataPack.type.all_msg_his : {
+          GlobalBus.emit(GlobalBus.event.all_msg_his, json.event)
+          break
+        }
       }
     }
   },
@@ -38,7 +46,7 @@ export default {
   sendMouse (data) {
     ws.send(DataPack.pack(DataPack.type.mouse, data))
   },
-  sendMsgText (data) {
-    ws.send(DataPack.pack(DataPack.type.msgText), data)
+  sendMsg (data) {
+    ws.send(DataPack.pack(DataPack.type.msg, data))
   }
 }

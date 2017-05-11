@@ -8,16 +8,16 @@
         <mu-tab value="tab3" title="互相通信"/>
         <mu-tab value="tab4" title="小程序"/>
       </mu-tabs>
-      <div v-if="ui_state.tab_active_tab === 'tab1'" class="tab_panel">
+      <div v-show="ui_state.tab_active_tab === 'tab1'" class="tab_panel">
         <fun-input></fun-input>
       </div>
-      <div v-if="ui_state.tab_active_tab === 'tab2'" class="tab_panel">
+      <div v-show="ui_state.tab_active_tab === 'tab2'" class="tab_panel">
         <fun-file></fun-file>
       </div>
-      <div v-if="ui_state.tab_active_tab === 'tab3'" class="tab_panel">
+      <div v-show="ui_state.tab_active_tab === 'tab3'" class="tab_panel">
         <fun-chat></fun-chat>
       </div>
-      <div v-if="ui_state.tab_active_tab === 'tab4'" class="tab_panel">
+      <div v-show="ui_state.tab_active_tab === 'tab4'" class="tab_panel">
         <fun-applet></fun-applet>
       </div>
     </mu-paper>

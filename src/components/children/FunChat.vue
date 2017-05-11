@@ -7,7 +7,7 @@
           <mu-icon v-else value="computer"/>
         </mu-paper>
         <div class="msgList" >
-          <div v-if="msg.type===0" v-for="msg in side.his">
+          <div v-if="msg.type==='text'" v-for="msg in side.his">
             <p>
               {{msg.value}}
             </p>
@@ -29,8 +29,8 @@
   </div>
 </template>
 <script>
-// import ConnectionMan from '../utils/ConnectionMan.js'
-// import GlobalBus from '../utils/GlobalBus.js'
+import ConnectionMan from '../utils/ConnectionMan.js'
+import GlobalBus from '../utils/GlobalBus.js'
 export default {
   data () {
     return {
@@ -65,6 +65,14 @@ export default {
       ]
     }
   },
+  created () {
+    GlobalBus.on(GlobalBus.event.msg, (msg) => {
+      this.insertAndroidMsg(msg)
+    })
+    GlobalBus.on(GlobalBus.event.all_msg_his, (msg) => {
+      this.initMsgList(msg)
+    })
+  },
   methods: {
     pick_image () {
       this.$refs.pick_image.click()
@@ -79,17 +87,54 @@ export default {
         value: this.textMsg,
         sourceType: 0
       }
-      // ConnectionMan.sendMsgText(msg)
+      ConnectionMan.sendMsg(msg)
+      this.insertPcMsg(msg)
+    },
+    insertPcMsg (msg) {
       if (this.chatHis.length === 0 ||
         this.chatHis[this.chatHis.length - 1].from === 'phone'
       ) {
         this.chatHis.push({
           from: 'pc',
-          his: ''
+          his: []
         })
       }
       this.chatHis[this.chatHis.length - 1].his.push(msg)
       this.textMsg = ''
+    },
+    insertAndroidMsg (msg) {
+      if (this.chatHis.length === 0 ||
+        this.chatHis[this.chatHis.length - 1].from === 'pc'
+      ) {
+        this.chatHis.push({
+          from: 'phone',
+          his: []
+        })
+      }
+      this.chatHis[this.chatHis.length - 1].his.push(msg)
+      this.textMsg = ''
+    },
+    initMsgList (list) {
+      console.log(list)
+      let listInUi = []
+      if (list.length > 0) {
+        let preSourceType = list[0].sourceType
+        listInUi.push({
+          from: preSourceType,
+          his: []
+        })
+        list.forEach(function (item) {
+          if (item.sourceType !== preSourceType) {
+            preSourceType = item.sourceType
+            listInUi.push({
+              from: preSourceType,
+              his: []
+            })
+          }
+          listInUi[listInUi.length - 1].his.push(item)
+        })
+      }
+      this.chatHis = listInUi
     }
   }
 }
@@ -103,9 +148,10 @@ export default {
   padding: 1em;
 }
 #chat_list{
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   flex: 1 0 0;
+  overflow: auto;
 }
 .side{
   display: flex;
@@ -134,8 +180,9 @@ export default {
         margin: 0;
         padding: 1em;
         background-color: lightgray;
-        margin-bottom: 1em;
       }
+      margin-bottom: 1em;
+      
     }
   }
 

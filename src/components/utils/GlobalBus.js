@@ -5,7 +5,9 @@ export default {
     ws_con_open: 'ws_con_open',
     ws_con_error: 'ws_con_error',
     ws_con_close: 'ws_con_close',
-    clipboard_setText: 'clipboard_setText'
+    clipboard_setText: 'clipboard_setText',
+    msg: 'msg',
+    all_msg_his: 'all_msg_his'
   },
   on (name, data) {
     bus.$on(name, data)
