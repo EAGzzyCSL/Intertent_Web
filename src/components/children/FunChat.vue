@@ -1,13 +1,13 @@
 <template>
   <div id="div_chat">
     <div id="chat_list">
-      <div class="side" v-for="side in chatHis" v-bind:class="{right:side.from==='pc'}">
+      <div class="side" v-for="side in chatHis" v-bind:class="{right:side.from===0}">
         <mu-paper class="demo-paper" circle :zDepth="1">
-          <mu-icon v-if="side.from==='phone'" value="android"/>
+          <mu-icon v-if="side.from===0" value="android"/>
           <mu-icon v-else value="computer"/>
         </mu-paper>
         <div class="msgList" >
-          <div v-if="msg.type==='text'" v-for="msg in side.his">
+          <div v-if="msg.msgType===0" v-for="msg in side.his">
             <p>
               {{msg.value}}
             </p>
@@ -35,34 +35,10 @@ export default {
   data () {
     return {
       textMsg: '',
-      chatHis: [
-        {
-          from: 'phone',
-          his: [
-            {
-              type: 0,
-              value: 'hello world'
-            },
-            {
-              type: 0,
-              value: 'hello world'
-            }
-          ]
-        },
-        {
-          from: 'pc',
-          his: [
-            {
-              type: 0,
-              value: 'lalala'
-            },
-            {
-              type: 0,
-              value: 'hello world'
-            }
-          ]
-        }
-      ]
+      chatHis: [],
+      node: {
+        chatList: null
+      }
     }
   },
   created () {
@@ -72,6 +48,10 @@ export default {
     GlobalBus.on(GlobalBus.event.all_msg_his, (msg) => {
       this.initMsgList(msg)
     })
+  },
+  mounted () {
+    this.node.chatList = this.$el.querySelector('#chat_list')
+    this.scrollToBottom()
   },
   methods: {
     pick_image () {
@@ -83,7 +63,7 @@ export default {
     sendText () {
       let msg = {
         time: Date.now(),
-        type: 0,
+        msgType: 0,
         value: this.textMsg,
         sourceType: 0
       }
@@ -91,28 +71,30 @@ export default {
       this.insertPcMsg(msg)
     },
     insertPcMsg (msg) {
+      // pc:0 android: 1
       if (this.chatHis.length === 0 ||
-        this.chatHis[this.chatHis.length - 1].from === 'phone'
+        this.chatHis[this.chatHis.length - 1].from === 1
       ) {
         this.chatHis.push({
-          from: 'pc',
+          from: 0,
           his: []
         })
       }
-      this.chatHis[this.chatHis.length - 1].his.push(msg)
       this.textMsg = ''
+      this.chatHis[this.chatHis.length - 1].his.push(msg)
+      this.scrollToBottom()
     },
     insertAndroidMsg (msg) {
       if (this.chatHis.length === 0 ||
-        this.chatHis[this.chatHis.length - 1].from === 'pc'
+        this.chatHis[this.chatHis.length - 1].from === 0
       ) {
         this.chatHis.push({
-          from: 'phone',
+          from: 1,
           his: []
         })
       }
       this.chatHis[this.chatHis.length - 1].his.push(msg)
-      this.textMsg = ''
+      this.scrollToBottom()
     },
     initMsgList (list) {
       console.log(list)
@@ -135,6 +117,11 @@ export default {
         })
       }
       this.chatHis = listInUi
+    },
+    scrollToBottom () {
+      setTimeout(() => {
+        this.node.chatList.scrollTop = this.node.chatList.scrollHeight
+      }, 5)
     }
   }
 }
@@ -182,7 +169,7 @@ export default {
         background-color: lightgray;
       }
       margin-bottom: 1em;
-      
+
     }
   }
 
