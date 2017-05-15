@@ -1,8 +1,10 @@
 import GlobalBus from './GlobalBus.js'
 import DataPack from './DataPack.js'
+var address = null
 var ws = null
 export default {
   connect (ipAndPort) {
+    address = ipAndPort
     ws = new WebSocket('ws://' + ipAndPort + '/ws')
     ws.onopen = function () {
       GlobalBus.emit(GlobalBus.event.ws_con_open)
@@ -30,6 +32,9 @@ export default {
         }
       }
     }
+  },
+  getAddress () {
+    return address
   },
   disConnect () {
     ws.close()

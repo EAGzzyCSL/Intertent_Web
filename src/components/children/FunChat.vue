@@ -7,10 +7,18 @@
           <mu-icon v-else value="computer"/>
         </mu-paper>
         <div class="msgList" >
-          <div v-if="msg.msgType===0" v-for="msg in side.his">
-            <p>
-              {{msg.value}}
-            </p>
+          <div v-for="msg in side.his">
+            <template v-if="msg.msgType===0">
+              <p>
+                {{msg.value}}
+              </p>
+            </template>
+            <template v-else-if="msg.msgType===1">
+              <img v-bind:src="'/fl?file=' + msg.value" />
+            </template>
+            <template v-else-if="msg.msgType===2">
+              <a v-bind:href="link + '/fl?file=' + msg.value" download="hello">xiazai</a>
+            </template>
           </div>
         </div>
       </div>
@@ -38,7 +46,8 @@ export default {
       chatHis: [],
       node: {
         chatList: null
-      }
+      },
+      link: ''
     }
   },
   created () {
@@ -48,6 +57,7 @@ export default {
     GlobalBus.on(GlobalBus.event.all_msg_his, (msg) => {
       this.initMsgList(msg)
     })
+    this.link = 'http://' + ConnectionMan.getAddress()
   },
   mounted () {
     this.node.chatList = this.$el.querySelector('#chat_list')
