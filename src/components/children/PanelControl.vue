@@ -57,8 +57,8 @@ export default {
   },
   components: {
     PartPhone,
-    PartTab,
-    PartInfo
+    PartInfo,
+    PartTab
   }
 }
 </script>

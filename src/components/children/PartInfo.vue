@@ -26,7 +26,7 @@ export default {
 </script>
 <style scoped>
 #div_info{
-  width: 24em;
+  width: 0em;
   background-color: lightblue;
   margin: 0 3em;
   display: flex;

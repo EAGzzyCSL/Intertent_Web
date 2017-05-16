@@ -14,10 +14,16 @@
               </p>
             </template>
             <template v-else-if="msg.msgType===1">
-              <img v-bind:src="'/fl?file=' + msg.value" />
+              <div class="msg_img" >
+                <img v-bind:src="link + '/fl?file=' + msg.value" />
+              </div>
             </template>
             <template v-else-if="msg.msgType===2">
-              <a v-bind:href="link + '/fl?file=' + msg.value" download="hello">xiazai</a>
+              <div class="msg_file">
+                <a class="a_down" v-bind:href="link + '/fl?file=' + msg.value" :download="msg.value.split('/').slice(-1)[0]">
+                <mu-icon value="file_download"/></a>
+                <span class="span_filename">{{msg.value.split('/').slice(-1)[0]}}</span>
+              </div>
             </template>
           </div>
         </div>
@@ -167,19 +173,53 @@ export default {
     .mu-paper{
       margin-left: 1em;
     }
+    .msgList{
+      align-items: flex-end;
+    }
   }
   .msgList{
     display: flex;
     flex-direction: column;
     // border: 1px solid black;
+    flex: 1 0 0;
+    display: flex;
+    align-items: flex-start;
     div{
+
       p{
         margin: 0;
         padding: 1em;
         background-color: lightgray;
+
       }
       margin-bottom: 1em;
-
+    }
+    .msg_file{
+      display: flex;
+      padding: 1em;
+      align-items: center;
+      background-color: lightgray;
+      .span_filename{
+        margin-left: 1em;
+      }
+    }
+    .a_down{
+      height: 4em;
+      width: 4em;
+      background-color: white;
+      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: gray;
+      border-radius: 100%;
+    }
+    .msg_img{
+      background-color: lightgray;
+      padding: 1em;
+      img{
+        width: 16em;
+      }
     }
   }
 
