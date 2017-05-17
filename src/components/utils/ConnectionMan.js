@@ -30,6 +30,10 @@ export default {
           GlobalBus.emit(GlobalBus.event.all_msg_his, json.event)
           break
         }
+        case DataPack.type.send_file_list: {
+          GlobalBus.emit(GlobalBus.event.send_file_list, json.event)
+          break
+        }
       }
     }
   },
@@ -38,6 +42,9 @@ export default {
   },
   disConnect () {
     ws.close()
+  },
+  sendGetFileList (data) {
+    ws.send(DataPack.pack(DataPack.type.get_file_list, data))
   },
   sendInput (data) {
     ws.send(DataPack.pack(DataPack.type.input, data))

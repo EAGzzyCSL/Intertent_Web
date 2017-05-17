@@ -19,7 +19,7 @@
         <mu-icon  value="folder"/>
         <span class="file_name">{{file.name}}</span>
       </div>
-      <a v-else download>
+      <a v-else download  v-bind:href="link + '/fl?file=' + currentPath + '/' + file.name">
         <mu-icon  value="insert_drive_file"/>
         <span class="file_name">{{file.name}}</span>
       </a>
@@ -29,49 +29,35 @@
 </div>
 </template>
 <script>
+import GlobalBus from '../utils/GlobalBus.js'
+import ConnectionMan from '../utils/ConnectionMan.js'
+
 export default {
   data () {
     return {
-      files: [
-        {
-          name: '123',
-          dir: true
-        },
-        {
-          name: 'qwe',
-          dir: false
-        },
-        {
-          name: '123',
-          dir: true
-        },
-        {
-          name: 'qwe',
-          dir: false
-        },
-        {
-          name: '123',
-          dir: true
-        },
-        {
-          name: 'qwe',
-          dir: false
-        },
-        {
-          name: '123',
-          dir: true
-        },
-        {
-          name: 'qwe',
-          dir: false
-        }
-      ],
-      currentPath: ''
+      files: [],
+      currentPath: '/storage/emulated/0',
+      link: ''
     }
   },
   methods: {
     open (path) {
+      this.currentPath = this.currentPath + '/' + path
+      ConnectionMan.sendGetFileList({
+        path: this.currentPath
+      })
+      // console.log(path)
     }
+  },
+  created () {
+    this.link = 'http://' + ConnectionMan.getAddress()
+    ConnectionMan.sendGetFileList({
+      path: this.currentPath
+    })
+    GlobalBus.on(GlobalBus.event.send_file_list, (msg) => {
+      this.files = msg
+      // console.log(msg)
+    })
   }
 }
 </script>
@@ -89,6 +75,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  overflow: auto;
   .one_file{
     height: 7em;
     width: 5em;

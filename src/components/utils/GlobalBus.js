@@ -7,7 +7,8 @@ export default {
     ws_con_close: 'ws_con_close',
     clipboard_setText: 'clipboard_setText',
     msg: 'msg',
-    all_msg_his: 'all_msg_his'
+    all_msg_his: 'all_msg_his',
+    send_file_list: 'send_file_list'
   },
   on (name, data) {
     bus.$on(name, data)

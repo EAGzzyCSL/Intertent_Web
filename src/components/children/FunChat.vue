@@ -113,7 +113,7 @@ export default {
       this.scrollToBottom()
     },
     initMsgList (list) {
-      console.log(list)
+      // console.log(list)
       let listInUi = []
       if (list.length > 0) {
         let preSourceType = list[0].sourceType
