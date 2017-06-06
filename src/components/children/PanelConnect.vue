@@ -5,15 +5,17 @@
       <mu-auto-complete hintText="x.x.x.x:x" labelFloat label="输入ip与端口" :dataSource="url_his" v-model="ip_and_port"/>
       <mu-icon-button icon="call_made" @click="beginConnect"/>
     </div>
-    <div id="div_or">
-      <hr />
-      <span id="span_or">OR</span>
-      <hr />
+    <div class="div_qr">
+      <div id="div_or">
+        <hr />
+        <span id="span_or">OR</span>
+        <hr />
+      </div>
+      <img id="img_qr" v-bind:src="qr_code" />
+      <p>
+        关于二维码的<a href="#">更多</a>
+      </p>
     </div>
-    <img id="img_qr" v-bind:src="qr_code" />
-    <p>
-      关于二维码的<a href="#">更多</a>
-    </p>
     <mu-flat-button label="获取安卓app" icon="android" primary @click="getAndroidApp"/>
   </mu-paper>
 </div>
@@ -108,5 +110,7 @@ export default {
   height: 16em;
   width: 16em;
 }
-
+.div_qr{
+  display: none;
+}
 </style>

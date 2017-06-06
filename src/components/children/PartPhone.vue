@@ -1,7 +1,7 @@
 <template>
   <div id="part_phone">
     <div id="phone_layer">
-      <video id="phone_projection" src="http://localhost/test/video.mp4" controls></video>
+      <video id="phone_projection" controls></video>
       <div id="touchScreen" @mousemove="onMouseMove" @click="onClick"></div>
     </div>
     <div id="div_hard_key">
@@ -65,6 +65,7 @@ export default {
   flex: 1 0 0;
   width: 100%;
   height: 100%;
+  opacity: 0;
 }
 #touchScreen{
   flex:1 0 0;

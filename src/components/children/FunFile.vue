@@ -9,7 +9,7 @@
     <mu-divider/> -->
     <mu-list>
       <mu-sub-header>书签</mu-sub-header>
-      <mu-list-item title="Gaia Zhou">
+      <mu-list-item title="下载">
       </mu-list-item>
     </mu-list>
   </div>

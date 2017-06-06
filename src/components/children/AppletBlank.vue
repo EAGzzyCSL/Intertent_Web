@@ -8,6 +8,6 @@
 </script>
 <style scoped>
 #div_wraper{
-  background-color: #e0e0e0;
+  /*background-color: #e0e0e0;*/
 }
 </style>

@@ -1,16 +1,16 @@
 <template>
   <div id="div_input">
     <div id="input_box">
-      <mu-text-field label="浮动标签" labelFloat hintText="简介" multiLine :rows="3" :rowsMax="6" v-model="inputText"/>
+      <mu-text-field label="远程输入" labelFloat hintText="在此键入文字以输入到手机" multiLine :rows="3" :rowsMax="6" v-model="inputText"/>
       <mu-icon-button icon="send" @click="sendText"/>
     </div>
     <div id="input_spec">
-      <mu-raised-button
+      <!-- <mu-raised-button
        label="光标左移" icon="keyboard_arrow_left"
        @click="cursorLeft"/>
       <mu-raised-button
        label="光标右移" icon="keyboard_arrow_right"
-       @click="cursorRight"/>
+       @click="cursorRight"/> -->
       <mu-raised-button
        label="退格" icon="backspace"
        @click="actionBackspace"/>

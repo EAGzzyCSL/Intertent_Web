@@ -1,7 +1,7 @@
 <template>
 <div id="div_control">
   <!-- app bar -->
-  <mu-appbar title="Title">
+  <mu-appbar title="Intertent">
     <mu-icon-button icon="menu" slot="left" @click="ui_drawer_toggle"/>
     <mu-icon-menu icon="more_vert" slot="right">
       <mu-menu-item title="退出" @click="exit"/>
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     ui_drawer_toggle () {
-      this.ui_state.drawer_open = !this.ui_state.drawer_open
+      // this.ui_state.drawer_open = !this.ui_state.drawer_open
     },
     ui_tab_handleTabChange (val) {
       this.ui_state.tab_active_tab = val
